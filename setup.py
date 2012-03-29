@@ -17,9 +17,9 @@ setup(
     author_email = 'ONGEI@pcm.gob.pe',
 
     packages = find_packages(),
-    #package_dir = {'': 'src'},
+    #package_dir = {'': 'src'}
     
-    install_requires = ['setuptools',]
+    install_requires = ['setuptools',],
 
     classifiers = [
         'Development Status :: 4 - Dev',
