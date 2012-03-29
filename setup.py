@@ -16,8 +16,8 @@ setup(
     author = 'O.N.G.E.I',
     author_email = 'ONGEI@pcm.gob.pe',
 
-    packages = find_packages('src'),
-    package_dir = {'': 'src'},
+    packages = find_packages(),
+    #package_dir = {'': 'src'},
     
     install_requires = ['setuptools'],
 
@@ -30,4 +30,5 @@ setup(
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP',
     ]
+    include_package_data=True,
 )
