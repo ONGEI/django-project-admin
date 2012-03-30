@@ -42,7 +42,7 @@ AVANCE    = (
             (10,'100 %'),
             )
 
-class Projecto(models.Model):
+class Proyecto(models.Model):
     nombre       = models.CharField('Proyecto',max_length=60)
     descripcion  = models.TextField('Descripción',blank=True,null=True)
     slug         = models.SlugField('Slug',max_length=60,editable=False)
@@ -52,7 +52,7 @@ class Projecto(models.Model):
     def save(self, *args, **kwargs):
         if not self.id:
             self.slug = slugify(self.nombre)
-        super(Projecto, self).save(*args, **kwargs)
+        super(Proyecto, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.nombre
@@ -65,12 +65,12 @@ class Projecto(models.Model):
     class Meta:
         ordering = ["nombre"]
         verbose_name = 'Proyectos'
-        verbose_name_plural = "Projectos"
+        verbose_name_plural = "Proyectos"
         unique_together = ("groupo", "slug")
         
 class Peticion(models.Model):
     asunto          = models.CharField('Asunto',max_length=140)
-    projecto        = models.ForeignKey(Projecto)
+    proyecto        = models.ForeignKey(Proyecto)
     descripcion     = models.TextField('Descripción',blank=True,null=True)
     creado_fecha    = models.DateTimeField('Fecha de creación',auto_now=True, auto_now_add=True)
     inicio_fecha    = models.DateField('Fecha de inicio',default = datetime.date.today())
@@ -101,7 +101,7 @@ class Peticion(models.Model):
         verbose_name_plural = 'Peticiones'
         
 class Wiki(models.Model):
-    projecto  = models.OneToOneField(Projecto)
+    proyecto  = models.OneToOneField(Proyecto)
     cuerpo    = models.TextField('Contenido')
     cometario = models.CharField('Comentario',max_length=255,blank=True,null=True)
 
@@ -110,10 +110,10 @@ class Wiki(models.Model):
         verbose_name_plural = 'Wikis'
 
     def __unicode__(self):
-        return u'Wiki del %s' % self.projecto
+        return u'Wiki del %s' % self.proyecto
 
 class Documento(models.Model):
-    projecto  = models.ForeignKey(Projecto)
+    proyecto  = models.ForeignKey(Proyecto)
     categoria = models.IntegerField('Categoría', choices=CATEGORIA, default=0)
     titulo    = models.CharField('Título',max_length=255)
     cuerpo    = models.TextField('Contenido')
@@ -126,7 +126,7 @@ class Documento(models.Model):
         return self.titulo
 
 class Archivo(models.Model):
-    projecto    = models.ForeignKey(Projecto)
+    proyecto    = models.ForeignKey(Proyecto)
     archivo     = models.FileField('Archivo', upload_to='uploads/archivo/')
     descripcion = models.CharField('Descripción', max_length=255,blank=True,null=True)
 
@@ -135,7 +135,7 @@ class Archivo(models.Model):
         verbose_name_plural = 'Archivos'
 
     def __unicode__(self):
-        return u'archivo: %s' % self.projecto
+        return u'archivo: %s' % self.proyecto
 
 class Comentario(models.Model):    
     """
