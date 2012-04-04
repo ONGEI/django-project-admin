@@ -6,7 +6,7 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name = "Django-Project-Admin",
+    name = "django-project-admin",
     version = "0.1",
     url = 'https://github.com/ONGEI/django-project-admin',
     license = 'GPL V.3',
@@ -30,4 +30,5 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
     ],
     include_package_data = True,
+    zip_safe=False,
 )
