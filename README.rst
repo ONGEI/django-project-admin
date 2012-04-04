@@ -43,7 +43,7 @@ DashBoard recomendado
                     children=[
                         {
                             'title': _(u'Calendario'),
-                            'url': '/admin/project-admin/show/calendar/',
+                            'url': '/admin/projectadmin/show/calendar/',
                             'external': False,
                         },
                     ]
