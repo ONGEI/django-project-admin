@@ -46,7 +46,7 @@ class Proyecto(models.Model):
     nombre       = models.CharField('Proyecto',max_length=60)
     descripcion  = models.TextField('Descripción',blank=True,null=True)
     slug         = models.SlugField('Slug',max_length=60,editable=False)
-    groupo       = models.ForeignKey(Group, related_name='Grupo')
+    #groupo       = models.ForeignKey(Group, related_name='Grupo')
     creado_fecha = models.DateTimeField('Fecha de creación',auto_now=True, auto_now_add=True)
 
     def save(self, *args, **kwargs):
