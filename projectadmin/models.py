@@ -45,7 +45,7 @@ AVANCE    = (
 class Proyecto(models.Model):
     nombre       = models.CharField('Proyecto',max_length=60)
     descripcion  = models.TextField('Descripción',blank=True,null=True)
-    slug         = models.SlugField('Slug',max_length=60,editable=False)
+    slug         = models.SlugField('Slug',max_length=60,editable=False, unique=True)
     #groupo       = models.ForeignKey(Group, related_name='Grupo')
     creado_fecha = models.DateTimeField('Fecha de creación',auto_now=True, auto_now_add=True)
 
@@ -66,7 +66,7 @@ class Proyecto(models.Model):
         ordering = ["nombre"]
         verbose_name = 'Proyectos'
         verbose_name_plural = "Proyectos"
-        unique_together = ("groupo", "slug")
+        #unique_together = ("groupo", "slug")
         
 class Peticion(models.Model):
     asunto          = models.CharField('Asunto',max_length=140)
