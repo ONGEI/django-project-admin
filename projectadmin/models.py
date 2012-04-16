@@ -84,15 +84,11 @@ class Peticion(models.Model):
     avance          = models.PositiveIntegerField('% realizado', max_length=3, choices=AVANCE, default = 0)
     tiempo_estimado = models.PositiveIntegerField('Tiempo estimado', max_length=4, blank = True, null = True)
 
-    def overdue_status(self):
-        if datetime.date.today() > self.terminado_fecha :
-            return 1
-
     def __unicode__(self):
         return self.asunto
 
     def notificar(self):
-        asunto = u'%s - Petición #%s (%s) %s' % (obj.proyecto.nombre,obj.pk, obj.estado, obj.asunto)
+        asunto = u'%s - Petición #%s (%s) %s' % (self.proyecto.nombre,self.pk, self.estadochoices[self.estado][1], self.asunto)
         de, a = self.creado_por.email, self.asignado_a.email
         cuerpo = u'<p>Ticket #%s ha sido reportado por %s</p><h3>Petición #%s: %s</h3><ul><li>Autor: %s</li><li>Estado: %s</li><li>Prioridad: %s</li><li>Asignado a: %s</li></ul><p>%s</p>' % (
             self.pk,
