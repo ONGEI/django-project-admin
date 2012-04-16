@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from django.db.models import Q
-from django.core.mail import EmailMessage
 from models import Proyecto, Peticion, Wiki, Documento, Archivo, Comentario
 
 class ProyectoAdmin(admin.ModelAdmin):
@@ -39,12 +38,7 @@ class PeticionAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.save()
-        asunto = u'%s - Petición #%s (%s) %s' % (obj.proyecto.nombre,obj.pk, obj.estado, obj.asunto)
-        de, a = obj.creado_por.email, obj.asignado_a.email
-        cuerpo = u'<p>Ticket #%s ha sido reportado por %s</p><h3>Petición #%s: %s</h3><ul><li>Autor: %s</li><li>Estado: %s</li><li>Prioridad: %s</li><li>Asignado a: %s</li></ul><p>%s</p>' % (obj.pk,obj.creado_por.username,obj.pk,obj.asunto,obj.creado_por.username,obj.estado,obj.prioridad,obj.asignado_a.username,obj.descripcion)
-        msg = EmailMessage(asunto, cuerpo, de, [a])
-        msg.content_subtype = "html"
-        msg.send()
+        obj.notificar()
 
     def queryset(self, request):
         qs = super(PeticionAdmin, self).queryset(request)

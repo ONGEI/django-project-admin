@@ -3,6 +3,7 @@ from django.db import models
 from django.forms.models import ModelForm
 from django import forms
 from django.contrib import admin
+from django.core.mail import EmailMessage
 from django.contrib.auth.models import User,Group
 import string, datetime
 from django.template.defaultfilters import slugify
@@ -90,6 +91,23 @@ class Peticion(models.Model):
     def __unicode__(self):
         return self.asunto
 
+    def notificar(self):
+        asunto = u'%s - Petición #%s (%s) %s' % (obj.proyecto.nombre,obj.pk, obj.estado, obj.asunto)
+        de, a = self.creado_por.email, self.asignado_a.email
+        cuerpo = u'<p>Ticket #%s ha sido reportado por %s</p><h3>Petición #%s: %s</h3><ul><li>Autor: %s</li><li>Estado: %s</li><li>Prioridad: %s</li><li>Asignado a: %s</li></ul><p>%s</p>' % (
+            self.pk,
+            self.creado_por.get_full_name(),
+            self.pk,
+            self.asunto,
+            self.creado_por.get_full_name(),
+            self.estado.choices[self.estado][1],
+            self.prioridad.choices[self.prioridad][1],
+            self.asignado_a.get_full_name(),
+            self.descripcion,
+            )
+        msg = EmailMessage(asunto, cuerpo, de, [a])
+        msg.content_subtype = "html"
+        msg.send()
     #def save(self):
         #if self.completed :
         #    self.completo_fecha = datetime.datetime.now()
