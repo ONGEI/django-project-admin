@@ -88,7 +88,7 @@ class Peticion(models.Model):
         return self.asunto
 
     def notificar(self):
-        asunto = u'%s - Petición #%s (%s) %s' % (self.proyecto.nombre,self.pk, self.estadochoices[self.estado][1], self.asunto)
+        asunto = u'%s - Petición #%s (%s) %s' % (self.proyecto.nombre,self.pk, self.estado.choices[self.estado][1], self.asunto)
         de, a = self.creado_por.email, self.asignado_a.email
         cuerpo = u'<p>Ticket #%s ha sido reportado por %s</p><h3>Petición #%s: %s</h3><ul><li>Autor: %s</li><li>Estado: %s</li><li>Prioridad: %s</li><li>Asignado a: %s</li></ul><p>%s</p>' % (
             self.pk,
