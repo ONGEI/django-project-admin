@@ -50,8 +50,8 @@
             <a href='#'>Aceptar</a>
         </div>
         <div class='navegar'>
-            <a href='/admin/project-admin/show/calendar/{{ ant.year }}/{{ ant.month }}/'>{{ ant|date:"F" }}</a> | 
-            <a href='/admin/project-admin/show/calendar/{{ sig.year }}/{{ sig.month }}/'>{{ sig|date:"F" }}</a>
+            <a href='/admin/projectadmin/show/calendar/{{ ant.year }}/{{ ant.month }}/'>{{ ant|date:"F" }}</a> | 
+            <a href='/admin/projectadmin/show/calendar/{{ sig.year }}/{{ sig.month }}/'>{{ sig|date:"F" }}</a>
         </div>
     </div>
     {% get_calendar for hoy.month hoy.year as calendar %}
