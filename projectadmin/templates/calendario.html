@@ -77,11 +77,11 @@
                                             Peticion #{{ peticion.id }}
                                             <span>
                                                 <strong>Proyecto: </strong>{{ peticion.proyecto }}<br>
-                                                <strong>Estado: </strong>{{ peticion.estado }}<br>
+                                                <strong>Estado: </strong>{{ peticion.get_estado }}<br>
                                                 <strong>Fecha inicio: </strong>{{ peticion.inicio_fecha }}<br>
                                                 <strong>Fecha fin: </strong>{{ peticion.terminado_fecha }}<br>
                                                 <strong>Asignado a: </strong>{{ peticion.asignado_a }}<br>
-                                                <strong>Prioridad: </strong>{{ peticion.prioridad }}<br>
+                                                <strong>Prioridad: </strong>{{ peticion.get_prioridad }}<br>
                                             </span>
                                         </a>
                                     <p>{{ peticion.asunto }}</p>
