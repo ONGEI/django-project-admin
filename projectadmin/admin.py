@@ -30,6 +30,7 @@ class PeticionAdmin(admin.ModelAdmin):
     search_fields = ['asunto']
     list_per_page = 25
     list_max_show_all = 30
+    exclude = ('creado_por',)
 
     class Media:
         js = ('grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js',
@@ -37,6 +38,7 @@ class PeticionAdmin(admin.ModelAdmin):
                 'filebrowser/js/TinyMCEAdmin.js',)
 
     def save_model(self, request, obj, form, change):
+        obj.creado_por = request.user
         obj.save()
         obj.notificar()
 
