@@ -88,7 +88,7 @@ class Peticion(models.Model):
         return self.asunto
 
     def notificar(self):
-        asunto = u'%s - Petición #%s (%s) %s' % (self.proyecto.nombre,self.pk, ESTADO[self.estado][1], self.asunto)
+        asunto = u'%s - Petición #%s (%s) %s' % (self.proyecto.nombre,self.pk, self.get_estado(), self.asunto)
         de, a = self.creado_por.email, self.asignado_a.email
         cuerpo = u'<p>Ticket #%s ha sido reportado por %s</p><h3>Petición #%s: %s</h3><ul><li>Autor: %s</li><li>Estado: %s</li><li>Prioridad: %s</li><li>Asignado a: %s</li></ul><p>%s</p>' % (
             self.pk,
@@ -96,8 +96,8 @@ class Peticion(models.Model):
             self.pk,
             self.asunto,
             self.creado_por.get_full_name(),
-            ESTADO[self.estado][1],
-            PRIORIDAD[self.prioridad][1],
+            self.get_estado(),
+            self.get_prioridad(),
             self.asignado_a.get_full_name(),
             self.descripcion,
             )
@@ -108,6 +108,12 @@ class Peticion(models.Model):
         #if self.completed :
         #    self.completo_fecha = datetime.datetime.now()
         #super(Peticion, self).save()
+
+    def get_estado(self):
+        return u'%s' % ESTADO[self.estado][1]
+
+    def get_prioridad(self):
+        return u'%s' % PRIORIDAD[self.prioridad][1]
 
     class Meta:
         ordering = ["prioridad"]
