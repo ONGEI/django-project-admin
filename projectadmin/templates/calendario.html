@@ -4,6 +4,33 @@
 
 {% block extrahead %}
     <link rel="stylesheet" href="{{ STATIC_URL }}css/calendario.css" type="text/css" media="screen" />
+    <style>
+        .clear { /* generic container (i.e. div) for floating buttons */
+        overflow: hidden;
+        width: 100%;
+        }
+        a.button {
+        color: #444;
+        display: block;
+        float: right;
+        height: 12px;
+        margin: 6px;
+        padding: 5px; /* sliding doors padding */
+        text-decoration: none;
+        }
+        a.button span {
+        display: block;
+        line-height: 14px;
+        }
+        a.button:active {
+        background-position: bottom right;
+        color: #000;
+        outline: none; /* hide dotted outline in Firefox */
+        }
+        a.button:active span {
+        background-position: bottom left;
+        }
+    </style>
     <script>
         function configurar(){
             var s = document.getElementById("anos");
@@ -21,6 +48,11 @@
                         m[j].selected = true;
                 }
             }
+        function change(){
+            var mes = document.getElementById('mes');
+            var ano = document.getElementById('anos');
+            window.location.href = '/admin/projectadmin/show/calendar/'+ano.value+'/'+mes.value+'/';
+        }
         window.onload = configurar;
     </script>
 {% endblock %}
@@ -47,7 +79,7 @@
                 <option value=12>Diciembre</option>
             </select>
             <select id='anos'><select>
-            <a href='#'>Aceptar</a>
+            <a class='button' href='#'><span onclick='change();'>Aceptar</span></a>
         </div>
         <div class='navegar'>
             <a href='/admin/projectadmin/show/calendar/{{ ant.year }}/{{ ant.month }}/'>{{ ant|date:"F" }}</a> | 

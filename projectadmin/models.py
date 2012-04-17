@@ -59,9 +59,6 @@ class Proyecto(models.Model):
         return self.nombre
 
     objects = models.Manager()
-    
-    def incomplete_tasks(self):
-        return Item.objects.filter(list=self,completed=0)
         
     class Meta:
         ordering = ["nombre"]
