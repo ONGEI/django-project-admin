@@ -55,7 +55,7 @@ class Proyecto(models.Model):
             self.slug = slugify(self.nombre)
         super(Proyecto, self).save(*args, **kwargs)
 
-    def __unicode__(self):
+    def __unicode__(self):#	modified:  
         return self.nombre
 
     objects = models.Manager()
